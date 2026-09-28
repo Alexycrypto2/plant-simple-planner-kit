@@ -25,7 +25,6 @@ function RecipeDetail() {
   const toggle = useToggleFavorite();
   const fav = favs.data?.has(r.id) ?? false;
   const [cooking, setCooking] = useState(false);
-  const [done, setDone] = useState<Set<number>>(new Set());
   const similar = swapSuggestions(r.id, r.category === "breakfast" ? "breakfast" : r.category === "snack" ? "snack" : "dinner").slice(0, 3);
 
   if (cooking) return <CookingMode steps={r.steps} title={r.title} onClose={() => setCooking(false)} />;
@@ -113,7 +112,6 @@ function RecipeDetail() {
           ))}
         </div>
       </section>
-      <span className="hidden">{done.size}{String(setDone)}</span>
     </article>
   );
 }
