@@ -13,7 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedGroceryRouteImport } from './routes/_authenticated/grocery'
+import { Route as AuthenticatedGuidesRouteImport } from './routes/_authenticated/guides'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedPantryRouteImport } from './routes/_authenticated/pantry'
+import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
+import { Route as AuthenticatedPlansRouteImport } from './routes/_authenticated/plans'
+import { Route as AuthenticatedPrepRouteImport } from './routes/_authenticated/prep'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedRecipesIndexRouteImport } from './routes/_authenticated/recipes.index'
 import { Route as AuthenticatedRecipesIdRouteImport } from './routes/_authenticated/recipes.$id'
@@ -37,9 +43,39 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedGroceryRoute = AuthenticatedGroceryRouteImport.update({
+  id: '/grocery',
+  path: '/grocery',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGuidesRoute = AuthenticatedGuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPantryRoute = AuthenticatedPantryRouteImport.update({
+  id: '/pantry',
+  path: '/pantry',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPlansRoute = AuthenticatedPlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPrepRoute = AuthenticatedPrepRouteImport.update({
+  id: '/prep',
+  path: '/prep',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
@@ -63,7 +99,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/grocery': typeof AuthenticatedGroceryRoute
+  '/guides': typeof AuthenticatedGuidesRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/pantry': typeof AuthenticatedPantryRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/plans': typeof AuthenticatedPlansRoute
+  '/prep': typeof AuthenticatedPrepRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/recipes/$id': typeof AuthenticatedRecipesIdRoute
   '/recipes/': typeof AuthenticatedRecipesIndexRoute
@@ -72,7 +114,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/grocery': typeof AuthenticatedGroceryRoute
+  '/guides': typeof AuthenticatedGuidesRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/pantry': typeof AuthenticatedPantryRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/plans': typeof AuthenticatedPlansRoute
+  '/prep': typeof AuthenticatedPrepRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/recipes/$id': typeof AuthenticatedRecipesIdRoute
   '/recipes': typeof AuthenticatedRecipesIndexRoute
@@ -83,7 +131,13 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/grocery': typeof AuthenticatedGroceryRoute
+  '/_authenticated/guides': typeof AuthenticatedGuidesRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/pantry': typeof AuthenticatedPantryRoute
+  '/_authenticated/planner': typeof AuthenticatedPlannerRoute
+  '/_authenticated/plans': typeof AuthenticatedPlansRoute
+  '/_authenticated/prep': typeof AuthenticatedPrepRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/recipes/$id': typeof AuthenticatedRecipesIdRoute
   '/_authenticated/recipes/': typeof AuthenticatedRecipesIndexRoute
@@ -94,7 +148,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/grocery'
+    | '/guides'
     | '/onboarding'
+    | '/pantry'
+    | '/planner'
+    | '/plans'
+    | '/prep'
     | '/profile'
     | '/recipes/$id'
     | '/recipes/'
@@ -103,7 +163,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/grocery'
+    | '/guides'
     | '/onboarding'
+    | '/pantry'
+    | '/planner'
+    | '/plans'
+    | '/prep'
     | '/profile'
     | '/recipes/$id'
     | '/recipes'
@@ -113,7 +179,13 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/grocery'
+    | '/_authenticated/guides'
     | '/_authenticated/onboarding'
+    | '/_authenticated/pantry'
+    | '/_authenticated/planner'
+    | '/_authenticated/plans'
+    | '/_authenticated/prep'
     | '/_authenticated/profile'
     | '/_authenticated/recipes/$id'
     | '/_authenticated/recipes/'
@@ -155,11 +227,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/grocery': {
+      id: '/_authenticated/grocery'
+      path: '/grocery'
+      fullPath: '/grocery'
+      preLoaderRoute: typeof AuthenticatedGroceryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guides': {
+      id: '/_authenticated/guides'
+      path: '/guides'
+      fullPath: '/guides'
+      preLoaderRoute: typeof AuthenticatedGuidesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/onboarding': {
       id: '/_authenticated/onboarding'
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pantry': {
+      id: '/_authenticated/pantry'
+      path: '/pantry'
+      fullPath: '/pantry'
+      preLoaderRoute: typeof AuthenticatedPantryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/planner': {
+      id: '/_authenticated/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof AuthenticatedPlannerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/plans': {
+      id: '/_authenticated/plans'
+      path: '/plans'
+      fullPath: '/plans'
+      preLoaderRoute: typeof AuthenticatedPlansRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/prep': {
+      id: '/_authenticated/prep'
+      path: '/prep'
+      fullPath: '/prep'
+      preLoaderRoute: typeof AuthenticatedPrepRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/profile': {
@@ -188,7 +302,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedGroceryRoute: typeof AuthenticatedGroceryRoute
+  AuthenticatedGuidesRoute: typeof AuthenticatedGuidesRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPantryRoute: typeof AuthenticatedPantryRoute
+  AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
+  AuthenticatedPlansRoute: typeof AuthenticatedPlansRoute
+  AuthenticatedPrepRoute: typeof AuthenticatedPrepRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedRecipesIdRoute: typeof AuthenticatedRecipesIdRoute
   AuthenticatedRecipesIndexRoute: typeof AuthenticatedRecipesIndexRoute
@@ -196,7 +316,13 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedGroceryRoute: AuthenticatedGroceryRoute,
+  AuthenticatedGuidesRoute: AuthenticatedGuidesRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPantryRoute: AuthenticatedPantryRoute,
+  AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
+  AuthenticatedPlansRoute: AuthenticatedPlansRoute,
+  AuthenticatedPrepRoute: AuthenticatedPrepRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedRecipesIdRoute: AuthenticatedRecipesIdRoute,
   AuthenticatedRecipesIndexRoute: AuthenticatedRecipesIndexRoute,
