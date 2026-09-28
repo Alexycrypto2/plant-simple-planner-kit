@@ -97,7 +97,8 @@ export function useSavePlan() {
       if (p.is_current) {
         await supabase.from("meal_plans").update({ is_current: false }).eq("user_id", user_id).eq("is_current", true).neq("id", p.id ?? "00000000-0000-0000-0000-000000000000");
       }
-      const row = { ...p, user_id, slots: p.slots as never };
+      const { id: _id, ...rest } = p;
+      const row = Object.fromEntries(Object.entries({ ...rest, user_id }).filter(([, v]) => v !== undefined)) as never;
       if (p.id) {
         const { error } = await supabase.from("meal_plans").update(row).eq("id", p.id);
         if (error) throw error;
