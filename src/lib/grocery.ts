@@ -31,9 +31,9 @@ const QTY_RE = new RegExp(`^\\s*((?:[\\d¼½¾⅓⅔/.\\-–\\s]+)(?:\\([^)]*\\)
 
 export function splitIngredient(line: string): { qty: string; name: string } {
   const m = line.match(QTY_RE);
-  const qty = m ? m[1].trim() : "";
+  const qty = m?.[1]?.trim() ?? "";
   let name = (m ? line.slice(m[0].length) : line).trim();
-  name = name.replace(/^of\s+/i, "").split(",")[0].replace(/\(.*?\)/g, "").replace(/\s+/g, " ").trim();
+  name = (name.replace(/^of\s+/i, "").split(",")[0] ?? "").replace(/\(.*?\)/g, "").replace(/\s+/g, " ").trim();
   if (!name) name = line.trim();
   return { qty, name };
 }
@@ -63,7 +63,8 @@ export function planRecipeCounts(slots: PlanSlots): Map<string, number> {
 export function buildGrocery(slots: PlanSlots): GroceryItem[] {
   const map = new Map<string, GroceryItem>();
   for (const [id, times] of planRecipeCounts(slots)) {
-    const r: Recipe = RECIPE_BY_ID[id];
+    const r: Recipe | undefined = RECIPE_BY_ID[id];
+    if (!r) continue;
     for (const line of r.ingredients) {
       if (/to taste|optional$|for serving$/i.test(line) && !/\d/.test(line)) {
         // still list pantry-style items without qty

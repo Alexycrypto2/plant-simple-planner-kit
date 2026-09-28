@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
 });
 
-const todayKey = (): Day => DAYS[(new Date().getDay() + 6) % 7];
+const todayKey = (): Day => DAYS[(new Date().getDay() + 6) % 7]!;
 
 function Dashboard() {
   const profile = useProfile();
@@ -27,7 +27,7 @@ function Dashboard() {
   const grocery = plan.data ? buildGrocery(slots) : [];
   const checked = plan.data?.grocery_checked.length ?? 0;
   const todayProtein = SLOTS.reduce((s, k) => s + (today[k] ? RECIPE_BY_ID[today[k]!]?.nutrition.protein ?? 0 : 0), 0);
-  const favList = [...(favs.data ?? [])].map((id) => RECIPE_BY_ID[id]).filter(Boolean).slice(0, 3);
+  const favList = [...(favs.data ?? [])].map((id) => RECIPE_BY_ID[id]).filter((r): r is NonNullable<typeof r> => !!r).slice(0, 3);
 
   return (
     <div className="space-y-8">

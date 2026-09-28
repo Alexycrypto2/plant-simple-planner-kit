@@ -27,7 +27,7 @@ function Pantry() {
     return RECIPES.map((r) => {
       const ing = r.ingredients.map((l) => normalizeKey(splitIngredient(l).name));
       const have = ing.filter((k) => keys.some((p) => p && (k.includes(p) || p.includes(k))));
-      return { r, have: have.length, total: ing.length, missing: r.ingredients.filter((_, i) => !have.includes(ing[i])).slice(0, 4) };
+      return { r, have: have.length, total: ing.length, missing: r.ingredients.filter((_, i) => !have.includes(ing[i] ?? "")).slice(0, 4) };
     }).filter((m) => m.have > 0).sort((a, b) => b.have / b.total - a.have / a.total).slice(0, 6);
   }, [keys.join("|")]);
 

@@ -9,7 +9,7 @@ const has = (r: Recipe, words: string[]) =>
 
 /** Deterministic prep-day order: base components first, then longest cooks, then assembly. */
 export function buildPrep(slots: PlanSlots): PrepTask[] {
-  const recipes = [...planRecipeCounts(slots).keys()].map((id) => RECIPE_BY_ID[id]);
+  const recipes = [...planRecipeCounts(slots).keys()].map((id) => RECIPE_BY_ID[id]).filter((r): r is Recipe => !!r);
   const tasks: PrepTask[] = [];
   const grains = recipes.filter((r) => has(r, ["rice", "quinoa", "farro"]));
   const tofu = recipes.filter((r) => has(r, ["tofu"]));
@@ -32,7 +32,7 @@ export function buildPrep(slots: PlanSlots): PrepTask[] {
 
 /** Components shared across several recipes — "prep once, use many times". */
 export function sharedComponents(slots: PlanSlots) {
-  const recipes = [...planRecipeCounts(slots).keys()].map((id) => RECIPE_BY_ID[id]);
+  const recipes = [...planRecipeCounts(slots).keys()].map((id) => RECIPE_BY_ID[id]).filter((r): r is Recipe => !!r);
   const comps: [string, string[]][] = [
     ["Tofu", ["tofu"]], ["Tempeh", ["tempeh"]], ["Chickpeas", ["chickpea"]], ["Lentils", ["lentil"]],
     ["Rice", ["rice"]], ["Quinoa", ["quinoa"]], ["Black beans", ["black bean"]], ["Tahini dressing", ["tahini"]],

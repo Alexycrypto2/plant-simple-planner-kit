@@ -42,7 +42,7 @@ type Row = [string, string, string, string];
 function build(rows: Row[]): PlanSlots {
   const out: PlanSlots = {};
   rows.forEach((r, i) => {
-    out[DAYS[i]] = {
+    out[DAYS[i]!] = {
       breakfast: SHORT[r[0]] ?? null,
       lunch: SHORT[r[1]] ?? null,
       dinner: SHORT[r[2]] ?? null,
