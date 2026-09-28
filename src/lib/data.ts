@@ -92,7 +92,7 @@ export function useCurrentPlan() {
 export function useSavePlan() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (p: Partial<MealPlan> & { id?: string }) => {
+    mutationFn: async (p: { [K in keyof MealPlan]?: MealPlan[K] | undefined }) => {
       const user_id = await uid();
       if (p.is_current) {
         await supabase.from("meal_plans").update({ is_current: false }).eq("user_id", user_id).eq("is_current", true).neq("id", p.id ?? "00000000-0000-0000-0000-000000000000");

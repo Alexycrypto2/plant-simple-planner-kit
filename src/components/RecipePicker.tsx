@@ -26,7 +26,7 @@ export function swapSuggestions(currentId: string | null | undefined, slot: Slot
 export function RecipePicker({
   open, onOpenChange, slot, currentId, avoid, onPick,
 }: {
-  open: boolean; onOpenChange: (o: boolean) => void; slot: Slot; currentId?: string | null; avoid?: string[];
+  open: boolean; onOpenChange: (o: boolean) => void; slot: Slot; currentId?: string | null | undefined; avoid?: string[] | undefined;
   onPick: (id: string | null) => void;
 }) {
   const [q, setQ] = useState("");

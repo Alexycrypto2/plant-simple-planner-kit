@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
-  const picks = [RECIPES[6], RECIPES[12], RECIPES[3], RECIPES[23]];
+  const picks = [RECIPES[6], RECIPES[12], RECIPES[3], RECIPES[23]].filter((r): r is NonNullable<typeof r> => !!r);
   const features = [
     { icon: CalendarDays, t: "Plan the week", d: "Start from one of the cookbook's four weekly plans or build your own, then swap any meal." },
     { icon: ShoppingBasket, t: "Shop once", d: "Your grocery list builds itself, grouped by aisle — skipping what's already in your pantry." },
