@@ -32,7 +32,7 @@ export interface PrepTask {
 
 export interface Batch { recipe: Recipe; meals: number; batches: number; days: number[] }
 
-export interface StorageItem { recipe: string; where: "fridge" | "freezer"; eatBy: string; note?: string }
+export interface StorageItem { recipe: string; where: "fridge" | "freezer"; eatBy: string; note?: string | undefined }
 
 export interface PrepPlan {
   tasks: PrepTask[];

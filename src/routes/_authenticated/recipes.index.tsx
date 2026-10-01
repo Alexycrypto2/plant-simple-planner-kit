@@ -10,7 +10,7 @@ import { useFavorites } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/recipes/")({
   head: () => ({ meta: [{ title: "Recipes — Planted & Simple" }, { name: "description", content: "All 30 high-protein plant-based recipes from the cookbook." }, { property: "og:title", content: "Recipes — Planted & Simple" }, { property: "og:description", content: "All 30 cookbook recipes." }] }),
-  validateSearch: (s: Record<string, unknown>): { fav?: boolean } => (s.fav === true || s.fav === "true" ? { fav: true } : {}),
+  validateSearch: (s: Record<string, unknown>): { fav?: boolean } => (s["fav"] === true || s["fav"] === "true" ? { fav: true } : {}),
   component: Recipes,
 });
 
