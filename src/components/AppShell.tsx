@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Home, BookOpen, CalendarDays, ShoppingBasket, ChefHat, Archive, Lightbulb, User, LogOut } from "lucide-react";
+import { Home, BookOpen, CalendarDays, ShoppingBasket, ChefHat, Archive, Lightbulb, User, LogOut, Heart } from "lucide-react";
 import type { ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -60,6 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="flex gap-1">
           <Link to="/pantry" className="rounded-full p-2 text-primary" aria-label="Pantry"><Archive className="h-5 w-5" /></Link>
           <Link to="/guides" className="rounded-full p-2 text-primary" aria-label="Guides"><Lightbulb className="h-5 w-5" /></Link>
+          <Link to="/recipes" search={{ fav: true }} className="rounded-full p-2 text-primary" aria-label="Favourites"><Heart className="h-5 w-5" /></Link>
           <Link to="/profile" className="rounded-full p-2 text-primary" aria-label="Profile"><User className="h-5 w-5" /></Link>
         </div>
       </header>

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { RECIPES } from "@/data/recipes";
 import { CATEGORY_LABEL } from "@/data/content";
@@ -10,6 +10,7 @@ import { useFavorites } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/recipes/")({
   head: () => ({ meta: [{ title: "Recipes — Planted & Simple" }, { name: "description", content: "All 30 high-protein plant-based recipes from the cookbook." }, { property: "og:title", content: "Recipes — Planted & Simple" }, { property: "og:description", content: "All 30 cookbook recipes." }] }),
+  validateSearch: (s: Record<string, unknown>): { fav?: boolean } => (s.fav === true || s.fav === "true" ? { fav: true } : {}),
   component: Recipes,
 });
 
@@ -21,7 +22,9 @@ function Recipes() {
   const [prot, setProt] = useState<string | null>(null);
   const [quick, setQuick] = useState(false);
   const [freezer, setFreezer] = useState(false);
-  const [favOnly, setFavOnly] = useState(false);
+  const { fav } = Route.useSearch();
+  const [favOnly, setFavOnly] = useState(!!fav);
+  useEffect(() => setFavOnly(!!fav), [fav]);
   const favs = useFavorites();
 
   const list = useMemo(() => RECIPES.filter((r) =>
