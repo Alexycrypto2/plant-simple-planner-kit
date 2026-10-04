@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Check, Clock, Hand, Package, Printer, Refrigerator, Snowflake, Layers } from "lucide-react";
+import { Check, Clock, Hand, Package, Play, Printer, Refrigerator, Snowflake, Layers } from "lucide-react";
+import { KitchenLiveMode } from "@/components/KitchenLiveMode";
 import { PageHeader, Empty } from "@/components/AppShell";
 import { buildPrepPlan, STATIONS, type PrepTask } from "@/lib/prep";
 import { useCurrentPlan, useProfile, useSavePlan } from "@/lib/data";
@@ -17,6 +18,7 @@ function Prep() {
   const profile = useProfile();
   const save = useSavePlan();
   const [mode, setMode] = useState<"stations" | "timeline">("stations");
+  const [live, setLive] = useState(false);
   const servings = Number(profile.data?.servings ?? 1) || 1;
   const p = useMemo(() => (plan.data ? buildPrepPlan(plan.data.slots, servings) : null), [plan.data, servings]);
   const done = new Set(plan.data?.prep_done ?? []);
@@ -38,10 +40,16 @@ function Prep() {
 
   return (
     <div className="space-y-8">
+      {live && <KitchenLiveMode tasks={p.tasks} done={done} onToggle={toggle} onClose={() => setLive(false)} />}
       <PageHeader eyebrow={`${profile.data?.prep_day ?? "Sunday"} · serving ${servings}`} title="Prep day workflow">
-        <button onClick={() => window.print()} className="flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm font-semibold text-primary print:hidden">
-          <Printer className="h-4 w-4" /> Print
-        </button>
+        <div className="flex gap-2 print:hidden">
+          <button onClick={() => setLive(true)} className="flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+            <Play className="h-4 w-4" /> {completed > 0 && completed < p.tasks.length ? "Resume prep" : "Start prep"}
+          </button>
+          <button onClick={() => window.print()} className="flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm font-semibold text-primary">
+            <Printer className="h-4 w-4" /> Print
+          </button>
+        </div>
       </PageHeader>
 
       {/* Summary */}
